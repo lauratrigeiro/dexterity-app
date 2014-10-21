@@ -17,3 +17,8 @@
 
 # Ignore database file
 /config/database.yml
+
+# Ignore ClearDB SSL encryption files
+/b25193ba642105-cert.pem
+/b25193ba642105-key.pem
+/cleardb-ca.pem
