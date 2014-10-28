@@ -235,12 +235,12 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   if Rails.env == "production"
     config.omniauth :facebook, ENV["FACEBOOK_ID"], ENV["FACEBOOK_SECRET"]
-    config.omniauth :twitter, "KEY", "SECRET"
-    config.omniauth :linked_in, "KEY", "SECRET"
+ #   config.omniauth :twitter, "KEY", "SECRET"
+ #   config.omniauth :linked_in, ENV["LINKEDIN_KEY"], ENV["LINKEDIN_SECRET"]
   else
     config.omniauth :facebook, ENV["FACEBOOK_ID_LOCAL"], ENV["FACEBOOK_SECRET_LOCAL"]
-    config.omniauth :twitter, "KEY", "SECRET"
-    config.omniauth :linked_in, "KEY", "SECRET"
+ #   config.omniauth :twitter, "KEY", "SECRET"
+ #   config.omniauth :linked_in, ENV["LINKEDIN_KEY"], ENV["LINKEDIN_SECRET"]
   end
 
   # ==> Warden configuration
