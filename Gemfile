@@ -6,7 +6,12 @@ gem 'rails', '4.1.5'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 gem 'devise'
-gem 'recaptcha', require: 'recaptcha/rails'
+# gem 'recaptcha', require: 'recaptcha/rails'
+gem 'figaro'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'
 # Use SCSS for stylesheets
 gem 'will_paginate',           '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
