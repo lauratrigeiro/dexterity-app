@@ -5,3 +5,22 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+User.create!(username:  "ExampleUser",
+             email: "example@rails.org",
+             password:              "foobarfoo",
+             password_confirmation: "foobarfoo",
+             created_at: 1.minutes.ago,
+             confirmed_at: Time.zone.now)
+
+99.times do |n|
+  username  = "example-#{n+1}"
+  email = "example-#{n+1}@rails.org"
+  password = "password"
+  User.create!(username:  			 	username,
+               email: 					email,
+               password:              	password,
+               password_confirmation: 	password,
+               created_at: 				1.minutes.ago,
+               confirmed_at: 			Time.zone.now)
+end
