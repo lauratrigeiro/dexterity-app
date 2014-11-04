@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028003708) do
+ActiveRecord::Schema.define(version: 20141103045557) do
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(version: 20141028003708) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "scores", force: true do |t|
+    t.string   "time"
+    t.integer  "level"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "scores", ["time"], name: "index_scores_on_time", using: :btree
+  add_index "scores", ["user_id", "created_at"], name: "index_scores_on_user_id_and_created_at", using: :btree
+  add_index "scores", ["user_id", "time"], name: "index_scores_on_user_id_and_time", using: :btree
+  add_index "scores", ["user_id"], name: "index_scores_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

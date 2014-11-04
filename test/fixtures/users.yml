@@ -4,8 +4,16 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+test_user:
+  id: 1
+  username: test_user
+  email: test@user.com
+  encrypted_password: abcdef1
+  password_salt:  efvfvffdv
+ # encrypted_password: $2a$10$4pXGeZ0bXcSp8a6Be11OCuNYADUBTYODwd/oh/OD8w9WlRdV6D25G
+#  password_conifrmation: password
+ # password_digest: <%= User.digest('password') %>
+ # admin: true
+ # created_at: <%= 1.minutes.ago %>
+  confirmed_at: <%= Time.zone.now %>
+
