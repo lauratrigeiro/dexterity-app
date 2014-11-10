@@ -24,3 +24,25 @@ User.create!(username:  "ExampleUser",
                created_at: 				1.minutes.ago,
                confirmed_at: 			Time.zone.now)
 end
+
+# Scores
+user = User.first
+40.times do
+  time = '%.3f' % ((rand(1000)+500)/1000.0).to_s
+  course = rand(3) + 1
+  pointer_var = rand(6)
+  pointer =  if pointer_var < 3 
+            "touchpad"
+          elsif pointer_var > 3
+            "mouse"
+          else
+            "trackball"
+          end
+  hand =  if time > "1.30"
+            "left"
+          else
+            "right"
+          end
+  user.scores.create!(time: time, course: course, 
+                      pointer: pointer, hand: hand) 
+end

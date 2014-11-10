@@ -1,3 +1,20 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-<%= @user.username %>
+<% provide(:title, 'My Times') %>
+<h1>My Times</h1>
+
+<% if @user.scores.any? %>
+	<table id="user-scores" class="table table-striped table-bordered table-responsive sortable">
+	<thead>
+	  <tr>
+	    <th><%= sortable "time" %></th>
+	    <th><%= sortable "course" %></th>
+	    <th><%= sortable "pointer", "Pointer Type" %></th>
+	    <th><%= sortable "hand" %></th>
+	    <th><%= sortable "created_at", "Date" %></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <%= render @scores %>
+	</tbody>
+	</table>
+	<%= will_paginate @scores %>
+<% end %>
