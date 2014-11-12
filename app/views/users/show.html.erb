@@ -6,7 +6,16 @@
 	<thead>
 	  <tr>
 	    <th><%= sortable "time" %></th>
-	    <th><%= sortable "course" %></th>
+	    <th><%= sortable "course" %><!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Filter </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><%= filter "course", "1" %></li>
+    <li><%= filter "course", "2" %></li>
+    <li><%= filter "course", "3" %></li>
+  </ul>
+</div></th>
 	    <th><%= sortable "pointer", "Pointer Type" %></th>
 	    <th><%= sortable "hand" %></th>
 	    <th><%= sortable "created_at", "Date" %></th>

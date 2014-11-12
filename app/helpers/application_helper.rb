@@ -20,4 +20,12 @@ module ApplicationHelper
 		link_to title, {:sort => column, :direction => direction},
 						{:class => css_class}
 	end
+
+	# Filters a table by the assigned column's attribute
+	def filter(column, filter)
+		title ||= filter.titleize
+		link_to title, :column => column, :filter => filter
+	end
+
+
 end
