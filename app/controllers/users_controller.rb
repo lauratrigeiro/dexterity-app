@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   	@unordered_scores = filter_column
   	@unordered_scores ||= @user.scores
   	@scores = @unordered_scores.order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
+    @values = params["users[pointer_select][]"] || "boo"
 
   end
 

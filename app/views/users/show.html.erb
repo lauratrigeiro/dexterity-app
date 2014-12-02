@@ -1,6 +1,8 @@
 <% provide(:title, 'My Times') %>
-<h1>My Times</h1>
 
+
+<h1>My Times</h1>
+<%= "values: " + @values %>
 <% if @user.scores.any? %>
 	<table id="user-scores" class="table table-striped table-bordered table-responsive sortable">
 	<thead>
@@ -16,8 +18,16 @@
     <li><%= filter "course", "3" %></li>
   </ul>
 </div></th>
-	    <th><%= sortable "pointer", "Pointer Type" %></th>
-	    <th><%= sortable "hand" %></th>
+	    <th><%= sortable "pointer", "Pointer Type" %><br/>
+	    	<%= make_select "pointer" %>
+<!--		<select id="pointer_select" multiple="multiple">
+			<option value="touchpad">Touchpad</option>
+			<option value="mouse">Mouse</option>
+			<option value="trackball">Trackball</option>
+		</select> -->
+	    </th>
+	    <th><%= sortable "hand" %><br />
+	    	<%= make_select "hand" %></th>
 	    <th><%= sortable "created_at", "Date" %></th>
 	  </tr>
 	</thead>
