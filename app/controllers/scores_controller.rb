@@ -3,7 +3,8 @@ class ScoresController < ApplicationController
 	def create
 		@score = current_user.scores.create(score_params)
 		if @score.save
-			flash[:success] = "Score created!"
+			flash[:success] = 
+				"You finished in #{@score.time} seconds!"
 			redirect_to '/scores/new'
 		else
 			render 'static_pages/home'
