@@ -25,7 +25,8 @@ $(".scores.new").ready(function() {
 			$("#done-btn").show();
 			$("#done-btn").click(function(){
 				var diff = (+new Date() - startTime)/1000.0;
-				alert(diff/1000.0);
+				$("score-time").val(diff);
+				alert(diff);
 			});
 		}
 		else {

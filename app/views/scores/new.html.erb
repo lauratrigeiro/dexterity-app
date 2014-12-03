@@ -11,7 +11,10 @@
 	<%= button_tag(type: 'button', id: 'start-btn', class: 'ends-btn') do %>
 		<%= content_tag(:strong, 'Start') %>
 	<% end %>
-	<%= button_tag(id: 'done-btn', class: 'ends-btn', hidden: true) do %>
-		<%= content_tag(:strong, 'Done') %>
+
+	<%= form_for(@score) do |f| %>
+		<%= f.hidden_field 'time', id: 'score-time' %>
+		<%= f.submit("Done!", id: 'done-btn', class: 'ends-btn', hidden: true) %>
 	<% end %>
+
 </div>
