@@ -22,6 +22,7 @@ $(".scores.new").ready(function() {
 	$("#start-btn").click(function(){
 		startTime = +new Date();
 		$(this).hide();
+		$("#selections").hide();
 		$(".game-btn").show();
 	});
 	

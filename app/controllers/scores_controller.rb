@@ -3,6 +3,8 @@ class ScoresController < ApplicationController
 	def create
 		@score = current_user.scores.create(score_params)
 		if @score.save
+			session[:hand] = @score.hand
+			session[:pointer] = @score.pointer
 			flash[:success] = 
 				"You finished in #{@score.time} seconds!"
 			redirect_to '/scores/new'
@@ -13,6 +15,7 @@ class ScoresController < ApplicationController
 
 	def new
 		@score = Score.new
+	#	@session_hand = session[:hand] || "right"
 	end
 
 	private
