@@ -1,13 +1,28 @@
 var leftClicks = 0;
 var rightClicks = 0;
 var startTime;
-//var endTime;
 
 $(".scores.new").ready(function() {
+	$(".pointer-btns .btn").click(function() {
+		
+		if(!$(this).hasClass("active")) {
+			$(".pointer-btns .active").removeClass("active");
+			$(this).addClass("active");
+		}
+	});
+
+	$(".hand-btns .btn").click(function() {
+		
+		if(!$(this).hasClass("active")) {
+			$(".hand-btns .active").removeClass("active");
+			$(this).addClass("active");
+		}
+	});
+
 	$("#start-btn").click(function(){
 		startTime = +new Date();
 		$(this).hide();
-		$("#left-btn").attr('disabled', false);
+		$(".game-btn").show();
 	});
 	
 	$("#left-btn").click(function(){
@@ -24,11 +39,10 @@ $(".scores.new").ready(function() {
 			$(".game-btn").hide();
 			$("#done-btn").show();
 			$("#done-btn").click(function(){
-		//	$("#done-form").submit(function() {
 				var diff = (+new Date() - startTime)/1000.0;
 				$("#score-time").val(diff);
-		//		alert(diff);
-		//		$.post('/scores', {time: diff});
+				$("#pointer").val($.trim($(".pointer-btns .active").text()));
+				$("#hand").val($.trim($(".hand-btns .active").text()));
 				$("#done-form").submit();
 			});
 		}

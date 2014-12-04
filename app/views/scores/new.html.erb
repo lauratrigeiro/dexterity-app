@@ -1,22 +1,46 @@
 <h1>Test your dexterity!</h1>
+<p class="directions">Course 1 Directions: After clicking 'Start', alternate and click each of the buttons five times before clicking 'Done!' to record your time. Good luck!</p>
 <div id='buttons'>
-	<%= button_tag(type: 'button', id: 'left-btn', class: 'game-btn', disabled: true) do %>
-		<%= content_tag(:strong, 'Click') %>
-	<% end %>
-
-	<%= button_tag(type: 'button', id: 'right-btn', class: 'game-btn', disabled: true) do %>
-		<%= content_tag(:strong, 'Click') %>
-	<% end %>
+	<strong>Pointers:</strong>
+	<div class='btn-group pointer-btns' data-toggle='buttons'>
+		<label class='btn btn-default active'>
+			<input type='radio' name='pointers' id='touchpad' autocomplete='off' checked>touchpad
+		</label>
+		<label class='btn btn-default'>
+			<input type='radio' name='pointers' id='mouse' autocomplete='off'>mouse
+		</label>
+		<label class='btn btn-default'>
+			<input type='radio' name='pointers' id='trackball' autocomplete='off'>trackball
+		</label>
+	</div>
+	<strong>Hand:</strong> 
+	<div class='btn-group hand-btns' data-toggle='buttons'>
+		<label class='btn btn-default'>
+			<input type='radio' name='hand' id='left' autocomplete='off'>left
+		</label>
+		<label class='btn btn-default active'>
+			<input type='radio' name='pointers' id='right' autocomplete='off' checked>right
+		</label>
+	</div>
 	<br/>
 	<%= button_tag(type: 'button', id: 'start-btn', class: 'ends-btn') do %>
 		<%= content_tag(:strong, 'Start') %>
 	<% end %>
+	<br/>
+	<%= button_tag(type: 'button', id: 'left-btn', class: 'game-btn', hidden: true) do %>
+		<%= content_tag(:strong, 'Click') %>
+	<% end %>
 
+	<%= button_tag(type: 'button', id: 'right-btn', class: 'game-btn', hidden: true, disabled: true) do %>
+		<%= content_tag(:strong, 'Click') %>
+	<% end %>
+	<br/>
+	
 	<%= form_for(@score, id: 'done-form') do |f| %>
 		<%= f.hidden_field 'time', id: 'score-time' %>
 		<%= f.hidden_field 'course', value: 1 %>
-		<%= f.hidden_field 'pointer', value: "touchpad" %>
-		<%= f.hidden_field 'hand', value: "left" %>
+		<%= f.hidden_field 'pointer', id: 'pointer' %>
+		<%= f.hidden_field 'hand', id: 'hand' %>
 		<%= f.submit("Done!", id: 'done-btn', class: 'ends-btn', hidden: true) %>
 	<% end %>
 
