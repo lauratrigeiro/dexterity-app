@@ -44,13 +44,22 @@ $(".scores.new").ready(function() {
 				$("#score-time").val(diff);
 				$("#pointer").val($.trim($(".pointer-btns .active").text()));
 				$("#hand").val($.trim($(".hand-btns .active").text()));
-				$("#done-form").submit();
+	//			$("#done-form").submit();
+				resetGame();
 			});
 		}
-		else {
-			$("#right-btn").attr('disabled', true);
-			$("#left-btn").attr('disabled', false);
-		}
+		$("#right-btn").attr('disabled', true);
+		$("#left-btn").attr('disabled', false);
 	});
 
 });
+
+function resetGame() {
+		$("#start-btn").show();
+		$("#selections").show();
+		$("#done-btn").hide();
+		leftClicks = 0;
+		rightClicks = 0;
+		console.log("reset game");
+	}
+
