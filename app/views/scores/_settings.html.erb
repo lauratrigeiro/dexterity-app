@@ -1,0 +1,24 @@
+<div id="selections">
+	<strong>Pointers:</strong>
+	<div class='btn-group pointer-btns' data-toggle='buttons'>
+			<label class="btn btn-default <%= 'active' if !session || session[:pointer] == 'touchpad' %>">
+				<input type='radio' name='pointers' id='touchpad' autocomplete='off'>touchpad
+			</label>
+			<label class="btn btn-default <%= 'active' if session && session[:pointer] == 'mouse' %>">
+				<input type='radio' name='pointers' id='mouse' autocomplete='off' checked>mouse
+			</label>
+			<label class="btn btn-default <%= 'active' if session && session[:pointer] == 'trackball' %>">
+				<input type='radio' name='pointers' id='trackball' autocomplete='off'>trackball
+			</label>
+		
+	</div>
+	<strong>Hand:</strong> 
+	<div class='btn-group hand-btns' data-toggle='buttons'>
+		<label class="btn btn-default <%= 'active' if session && session[:hand] == 'left' %>">
+			<input type='radio' name='hand' id='left' autocomplete='off'>left
+		</label>
+		<label class="btn btn-default <%= 'active' if !session || session[:hand] == 'right' %>">
+			<input type='radio' name='pointers' id='right' autocomplete='off'>right
+		</label>
+	</div>
+</div>

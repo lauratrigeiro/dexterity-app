@@ -2,74 +2,10 @@
 <div id="repeat-form"></div>
 <p class="directions">Course 1 Directions: After clicking 'Start', alternate and click each of the buttons five times before clicking 'Done!' to record your time. Good luck!</p>
 <div id='buttons'>
-	<div id="selections">
-	<strong>Pointers:</strong>
-	<div class='btn-group pointer-btns' data-toggle='buttons'>
-		<% if session && session[:pointer] == "mouse" %>
-		<label class='btn btn-default'>
-			<input type='radio' name='pointers' id='touchpad' autocomplete='off'>touchpad
-		</label>
-		<label class='btn btn-default active'>
-			<input type='radio' name='pointers' id='mouse' autocomplete='off' checked>mouse
-		</label>
-		<label class='btn btn-default'>
-			<input type='radio' name='pointers' id='trackball' autocomplete='off'>trackball
-		</label>
-		<% elsif session && session[:pointer] == "trackball" %>
-		<label class='btn btn-default'>
-			<input type='radio' name='pointers' id='touchpad' autocomplete='off'>touchpad
-		</label>
-		<label class='btn btn-default'>
-			<input type='radio' name='pointers' id='mouse' autocomplete='off'>mouse
-		</label>
-		<label class='btn btn-default active'>
-			<input type='radio' name='pointers' id='trackball' autocomplete='off' checked>trackball
-		</label>
-		<% else %>
-		<label class='btn btn-default active'>
-			<input type='radio' name='pointers' id='touchpad' autocomplete='off' checked>touchpad
-		</label>
-		<label class='btn btn-default'>
-			<input type='radio' name='pointers' id='mouse' autocomplete='off'>mouse
-		</label>
-		<label class='btn btn-default'>
-			<input type='radio' name='pointers' id='trackball' autocomplete='off'>trackball
-		</label>
-		<% end %>
-	</div>
-	<strong>Hand:</strong> 
-	<div class='btn-group hand-btns' data-toggle='buttons'>
-		<% if session && session[:hand] == "left" %>
-		<label class='btn btn-default active'>
-			<input type='radio' name='hand' id='left' autocomplete='off' checked>left
-		</label>
-		<label class='btn btn-default'>
-			<input type='radio' name='pointers' id='right' autocomplete='off'>right
-		</label>
-		<% else %>
-			<label class='btn btn-default'>
-			<input type='radio' name='hand' id='left' autocomplete='off'>left
-		</label>
-		<label class='btn btn-default active'>
-			<input type='radio' name='pointers' id='right' autocomplete='off' checked>right
-		</label>
-		<% end %>
-	</div>
-	</div>
+	<%= render 'settings' %>
 	<br/>
-	<%= button_tag(type: 'button', id: 'start-btn', class: 'ends-btn') do %>
-		<%= content_tag(:strong, 'Start') %>
-	<% end %>
-	<br/>
-	<%= button_tag(type: 'button', id: 'left-btn', class: 'game-btn', hidden: true) do %>
-		<%= content_tag(:strong, 'Click') %>
-	<% end %>
-
-	<%= button_tag(type: 'button', id: 'right-btn', class: 'game-btn', hidden: true, disabled: true) do %>
-		<%= content_tag(:strong, 'Click') %>
-	<% end %>
-	<br/>
-	
+	<%= render 'course_1_buttons' %>
+	<br/>	
 	<%= form_for(@score, remote: true, id: 'done-form') do |f| %>
 		<%= f.hidden_field 'time', id: 'score-time' %>
 		<%= f.hidden_field 'course', value: 1 %>
@@ -77,7 +13,4 @@
 		<%= f.hidden_field 'hand', id: 'hand' %>
 		<%= f.submit("Done!", id: 'done-btn', class: 'ends-btn', hidden: true) %>
 	<% end %>
-
-	
-
 </div>

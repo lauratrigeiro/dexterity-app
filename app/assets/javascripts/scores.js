@@ -3,22 +3,21 @@ var rightClicks = 0;
 var startTime;
 
 $(".scores.new").ready(function() {
-	$(".pointer-btns .btn").click(function() {
-		
+	// User chooses pointer setting
+	$(".pointer-btns .btn").click(function() {	
 		if(!$(this).hasClass("active")) {
 			$(".pointer-btns .active").removeClass("active");
 			$(this).addClass("active");
 		}
 	});
-
-	$(".hand-btns .btn").click(function() {
-		
+	// User chooses hand setting
+	$(".hand-btns .btn").click(function() {	
 		if(!$(this).hasClass("active")) {
 			$(".hand-btns .active").removeClass("active");
 			$(this).addClass("active");
 		}
 	});
-
+	// Start game
 	$("#start-btn").click(function(){
 		startTime = +new Date();
 		$(this).hide();
@@ -30,21 +29,20 @@ $(".scores.new").ready(function() {
 		leftClicks++;
 		$("#right-btn").attr('disabled', false);
 		$("#left-btn").attr('disabled', true);
-		console.log("left: " + leftClicks);
 	});
+
 	$("#right-btn").click(function(){
 		rightClicks++;
-		console.log("right: " + rightClicks);
+		// Game is complete, show 'Done' button
 		if(leftClicks == 5 && rightClicks == 5) {
-			endTime = new Date($.now());
 			$(".game-btn").hide();
 			$("#done-btn").show();
 			$("#done-btn").click(function(){
+				// Game is done, calculate time and remember game settings
 				var diff = (+new Date() - startTime)/1000.0;
 				$("#score-time").val(diff);
 				$("#pointer").val($.trim($(".pointer-btns .active").text()));
 				$("#hand").val($.trim($(".hand-btns .active").text()));
-	//			$("#done-form").submit();
 				resetGame();
 			});
 		}
@@ -54,12 +52,12 @@ $(".scores.new").ready(function() {
 
 });
 
+// Put game back to start state, except for right/left in parent method
 function resetGame() {
 		$("#start-btn").show();
 		$("#selections").show();
 		$("#done-btn").hide();
 		leftClicks = 0;
 		rightClicks = 0;
-		console.log("reset game");
 	}
 
