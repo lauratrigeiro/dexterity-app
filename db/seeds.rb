@@ -28,7 +28,7 @@ end
 # Scores
 user = User.first
 40.times do
-  time = '%.3f' % ((rand(1000)+500)/1000.0).to_s
+  time = rand(20000)+5000
   course = rand(3) + 1
   pointer_var = rand(6)
   pointer =  if pointer_var < 3 
@@ -38,7 +38,7 @@ user = User.first
           else
             "trackball"
           end
-  hand =  if time > "1.30"
+  hand =  if time > 18000
             "left"
           else
             "right"

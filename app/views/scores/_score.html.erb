@@ -1,5 +1,5 @@
 <tr id="score-<%= score.id %>">
-  <td><%= score.time %></td>
+  <td><%= '%.3f' % (score.time / 1000.0).to_s %></td>
   <td><%= score.course %></td>
   <td><%= score.pointer %></td>
   <td><%= score.hand %></td>

@@ -39,7 +39,7 @@ $(".scores.new").ready(function() {
 			$("#done-btn").show();
 			$("#done-btn").click(function(){
 				// Game is done, calculate time and remember game settings
-				var diff = (+new Date() - startTime)/1000.0;
+				var diff = +new Date() - startTime;
 				$("#score-time").val(diff);
 				$("#pointer").val($.trim($(".pointer-btns .active").text()));
 				$("#hand").val($.trim($(".hand-btns .active").text()));
