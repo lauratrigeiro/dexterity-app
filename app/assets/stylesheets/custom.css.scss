@@ -31,9 +31,7 @@ textarea {
 
 .center {
   text-align: center;
-  h1 {
   margin-bottom: 10px;
-  }
 }
 
 .signup {
@@ -154,8 +152,17 @@ cursor: pointer;
 
 /* dexterity page */
 
+.hidden {
+  display: none;
+}
+
 .directions {
   text-align: center;
+}
+
+#course-records {
+  margin-bottom: 20px;
+  border: solid blue;
 }
 
 .pointer-btns {

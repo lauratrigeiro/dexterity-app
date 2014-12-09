@@ -62,4 +62,8 @@ class User < ActiveRecord::Base
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
   end
+
+  def personal_best(opts = {})
+      self.scores.where(opts).order(:time).first
+  end
 end

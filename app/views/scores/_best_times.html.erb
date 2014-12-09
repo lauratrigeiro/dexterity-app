@@ -1,1 +1,55 @@
-I AM AMAZING
+<div class="container" id="course-records">
+	
+	<%= form_tag :refresh_best, method: :get, remote: true, :class => "form-inline" do %>
+				<div class="center"><span class="h4"><strong>Course Records</strong></span>
+				<%= hidden_field_tag :new_pointer, session[:pointer], id: "new-pointer" %>
+				<%= hidden_field_tag :new_hand, session[:hand], id: "new-hand" %>
+			    <%= submit_tag "Refresh Scores", name: nil, class: "btn btn-default", id: "refresh-btn" %>   
+			<% end %></div>
+    <div class="row">
+
+        <div class="col-md-6">      
+            <% overall_best = Score.overall_best(course: 1) %>
+            <% overall_best_with_settings = Score.overall_best(course: 1, pointer: session[:pointer], 
+            													hand: session[:hand]) %>
+            <div id="overall-best">
+	            <% if overall_best %>
+					<%= "Overall best time: #{'%.3f' % (overall_best.time / 1000.0).to_s} seconds " %>
+				<% else %>
+					<%= "No overall times" %>
+				<% end %><br/>
+			</div>
+			<div id="overall-best-settings">
+				<% if overall_best_with_settings %>
+					<%= "Overall best time with #{session[:pointer]} and #{session[:hand]} hand: #{'%.3f' % (overall_best_with_settings.time / 1000.0).to_s} seconds" %>
+				<% else %>
+					<%= "No overall times with #{session[:pointer]} and #{session[:hand]} hand" %>
+				<% end %><br/>
+			</div>
+        </div>
+        <div class="col-md-6">
+            <% personal_best = current_user.personal_best(course: 1) %>
+            <% personal_best_with_settings = current_user.personal_best(course: 1, pointer: session[:pointer]												, hand: session[:hand]) %>
+            <div id="personal-best">
+	            <% if personal_best %>
+					<%= "Personal best time: #{'%.3f' % (personal_best.time / 1000.0).to_s} seconds" %>
+				<% else %>
+					<%= "No personal times" %>
+				<% end %><br/>
+			</div>
+			<div id="personal-best-settings">
+				<% if overall_best_with_settings %>
+					<%= "Personal best time with #{session[:pointer]} and #{session[:hand]} hand: #{'%.3f' % (personal_best_with_settings.time / 1000.0).to_s} seconds" %>
+				<% else %>
+					<%= "No personal times with #{session[:pointer]} and #{session[:hand]} hand" %>
+				<% end %><br/>
+			</div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

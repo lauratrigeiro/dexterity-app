@@ -17,6 +17,12 @@ $(".scores.new").ready(function() {
 			$(this).addClass("active");
 		}
 	});
+
+	$("#refresh-btn").click(function() {
+		$("#new-pointer").val($.trim($(".pointer-btns .active").text()));
+		$("#new-hand").val($.trim($(".hand-btns .active").text()));
+	});
+
 	// Start game
 	$("#start-btn").click(function(){
 		startTime = +new Date();
