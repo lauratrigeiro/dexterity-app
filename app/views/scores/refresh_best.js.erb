@@ -1,17 +1,7 @@
-<% if @overall_best %>
-	$('#overall-best').text('<%= "Overall best time: #{'%.3f' % (@overall_best.time / 1000.0).to_s} seconds" %>');
-<% else %>
-	$('#overall-best').text('<%= "No overall times" %>');
-<% end %>
 <% if @overall_best_with_settings %>
 	$('#overall-best-settings').text('<%= "Overall best time with #{params[:new_pointer]} and #{params[:new_hand]} hand: #{'%.3f' % (@overall_best_with_settings.time / 1000.0).to_s} seconds" %>');
 <% else %>
 	$('#overall-best-settings').text('<%= "No overall times with #{params[:new_pointer]} and #{params[:new_hand]} hand" %>');
-<% end %>
-<% if @personal_best %>
-	$('#personal-best').text('<%= "Personal best time: #{'%.3f' % (@personal_best.time / 1000.0).to_s} seconds" %>');
-<% else %>
-	$('#personal-best').text('<%= "No personal times" %>');
 <% end %>
 <% if @personal_best_with_settings %>
 	$('#personal-best-settings').text('<%= "Personal best time with #{params[:new_pointer]} and #{params[:new_hand]} hand: #{'%.3f' % (@personal_best_with_settings.time / 1000.0).to_s} seconds" %>');

@@ -6,6 +6,16 @@ class ScoresController < ApplicationController
 		if @score.save
 			session[:hand] = @score.hand
 			session[:pointer] = @score.pointer
+			@personal_best_with_settings = current_user.personal_best(course: 1, pointer: @score.pointer,
+														 hand: @score.hand)
+			@refresh = @score.time >= @personal_best_with_settings.time
+			if @refresh
+				@overall_best = Score.overall_best(course: 1)
+				@overall_best_with_settings = Score.overall_best(course: 1, pointer: @score.pointer,
+														 hand: @score.hand)
+				@personal_best = current_user.personal_best(course: 1)
+			end
+
 			respond_to do |format|
 			  format.html do
 			  	flash[:success] = 
