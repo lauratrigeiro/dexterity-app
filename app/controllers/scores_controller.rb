@@ -4,16 +4,21 @@ class ScoresController < ApplicationController
 	def create
 		@score = current_user.scores.create(score_params)
 		if @score.save
-			session[:hand] = @score.hand
-			session[:pointer] = @score.pointer
+			@refresh = false
 			@personal_best_with_settings = current_user.personal_best(course: 1, pointer: @score.pointer,
 														 hand: @score.hand)
-			@refresh = @score.time >= @personal_best_with_settings.time
-			if @refresh
+			@record = @score.time <= @personal_best_with_settings.time
+			if session[:hand] != @score.hand || session[:pointer] != @score.pointer
+				session[:hand] = @score.hand
+				session[:pointer] = @score.pointer
+				@refresh = true
+			end
+			if @record || @refresh
 				@overall_best = Score.overall_best(course: 1)
 				@overall_best_with_settings = Score.overall_best(course: 1, pointer: @score.pointer,
 														 hand: @score.hand)
 				@personal_best = current_user.personal_best(course: 1)
+				@refresh = true
 			end
 
 			respond_to do |format|
