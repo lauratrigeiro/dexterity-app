@@ -53,6 +53,19 @@ class ScoresController < ApplicationController
 		end
 	end
 
+	def index
+		@scores = Score.all
+		if !params[:course].nil?
+			@scores = @scores.where(course: params[:course]).order(:time)
+			respond_to do |format|
+				format.html 
+				format.js
+		  	end
+		end
+	end
+
+	
+
 	private
 
 	def score_params

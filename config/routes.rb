@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :users, :only => [:show, :index]
   get 'users/:id' => 'users#show'
   # get 'scores/new' 
-  resources :scores, :only => [:new, :create]
+  resources :scores, :only => [:new, :create, :index]
   get 'refresh_best' => 'scores#refresh_best'
 
   # The priority is based upon order of creation: first created -> highest priority.
