@@ -29,12 +29,17 @@ module ApplicationHelper
 
 	# Creates a select options list for a column
 	def make_select(column)
-		form_for(:users, url: users_show_path) do |f| 
+		form_for(:users, url: user_path, id: "select-form", method: :get) do |f| 
 			column_values = Score.uniq.pluck(column)
 			label = "#{column}_select" 
 			f.label :label
-			f.select("pointer_select", options_for_select(column_values.map { |value| [ value, value ] }, "mouse"), { :include_blank => false}, { :multiple => true, :size => column_values.length })
-		#	f.submit 
+			pre_select = if params[:column] == column
+							session[:filter] || column_values
+						else
+							column_values
+						end
+			f.select(label, options_for_select(column_values.map { |value| [ value, value ] }, pre_select), { :itnclude_blank => false}, { :multiple => true, :size => column_values.length })
+ 
 		end
 	end
 
