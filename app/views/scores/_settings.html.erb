@@ -1,11 +1,11 @@
 <div id="selections">
 	<strong>Pointers:</strong>
 	<div class='btn-group pointer-btns' data-toggle='buttons'>
-			<label class="btn btn-default <%= 'active' if !session || session[:pointer] == 'touchpad' %>">
-				<input type='radio' name='pointers' id='touchpad' autocomplete='off'>touchpad
+			<label class="btn btn-default <%= 'active' if session[:pointer].nil? || session[:pointer] == 'touchpad' %>">
+				<input type='radio' name='pointers' id='touchpad' autocomplete='off' checked>touchpad
 			</label>
 			<label class="btn btn-default <%= 'active' if session && session[:pointer] == 'mouse' %>">
-				<input type='radio' name='pointers' id='mouse' autocomplete='off' checked>mouse
+				<input type='radio' name='pointers' id='mouse' autocomplete='off'>mouse
 			</label>
 			<label class="btn btn-default <%= 'active' if session && session[:pointer] == 'trackball' %>">
 				<input type='radio' name='pointers' id='trackball' autocomplete='off'>trackball
@@ -16,7 +16,7 @@
 		<label class="btn btn-default <%= 'active' if session && session[:hand] == 'left' %>">
 			<input type='radio' name='hand' id='left' autocomplete='off'>left
 		</label>
-		<label class="btn btn-default <%= 'active' if !session || session[:hand] == 'right' %>">
+		<label class="btn btn-default <%= 'active' if session[:hand].nil? || session[:hand] == 'right' %>">
 			<input type='radio' name='pointers' id='right' autocomplete='off'>right
 		</label>
 	</div>

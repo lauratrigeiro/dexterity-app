@@ -8,10 +8,12 @@
 			<% end %></div>
     <div class="row">
 
-        <div class="col-md-6">      
+        <div class="col-md-6">
+        	<% settings_pointer = session[:pointer] || "touchpad" %>
+        	<% settings_hand = session[:hand] || "right" %>      
             <% overall_best = Score.overall_best(course: 1) %>
-            <% overall_best_with_settings = Score.overall_best(course: 1, pointer: session[:pointer], 
-            													hand: session[:hand]) %>
+            <% overall_best_with_settings = Score.overall_best(course: 1, pointer: settings_pointer, 
+            													hand: settings_hand) %>
             <div id="overall-best">
 	            <% if overall_best %>
 					<%= "Overall best time: #{'%.3f' % (overall_best.time / 1000.0).to_s} seconds " %>
@@ -21,15 +23,15 @@
 			</div>
 			<div id="overall-best-settings">
 				<% if overall_best_with_settings %>
-					<%= "Overall best time with #{session[:pointer]} and #{session[:hand]} hand: #{'%.3f' % (overall_best_with_settings.time / 1000.0).to_s} seconds" %>
+					<%= "Overall best time with #{settings_pointer} and #{settings_hand} hand: #{'%.3f' % (overall_best_with_settings.time / 1000.0).to_s} seconds" %>
 				<% else %>
-					<%= "No overall times with #{session[:pointer]} and #{session[:hand]} hand" %>
+					<%= "No overall times with #{settings_pointer} and #{settings_hand} hand" %>
 				<% end %><br/>
 			</div>
         </div>
         <div class="col-md-6">
             <% personal_best = current_user.personal_best(course: 1) %>
-            <% personal_best_with_settings = current_user.personal_best(course: 1, pointer: session[:pointer]												, hand: session[:hand]) %>
+            <% personal_best_with_settings = current_user.personal_best(course: 1, pointer: settings_pointer												, hand: settings_hand) %>
             <div id="personal-best">
 	            <% if personal_best %>
 					<%= "Personal best time: #{'%.3f' % (personal_best.time / 1000.0).to_s} seconds" %>
@@ -38,10 +40,10 @@
 				<% end %><br/>
 			</div>
 			<div id="personal-best-settings">
-				<% if overall_best_with_settings %>
-					<%= "Personal best time with #{session[:pointer]} and #{session[:hand]} hand: #{'%.3f' % (personal_best_with_settings.time / 1000.0).to_s} seconds" %>
+				<% if personal_best_with_settings %>
+					<%= "Personal best time with #{settings_pointer} and #{settings_hand} hand: #{'%.3f' % (personal_best_with_settings.time / 1000.0).to_s} seconds" %>
 				<% else %>
-					<%= "No personal times with #{session[:pointer]} and #{session[:hand]} hand" %>
+					<%= "No personal times with #{settings_pointer} and #{settings_hand} hand" %>
 				<% end %><br/>
 			</div>
         </div>
