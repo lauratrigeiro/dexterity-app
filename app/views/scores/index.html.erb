@@ -1,24 +1,10 @@
 <% provide(:title, 'Leader Board') %>
-<h1>Leader Board</h1>
-Course:
+<h1>Leader Board: Course <span id='course-number'>1</span></h1>
+<p>Course:
 <%= link_to "1", scores_path + '?' + {course: 1}.to_param, class: 'btn btn-default', remote: true %>
-<%= link_to "2", {:course => 2}, class: 'btn btn-default', remote: true %>
-<%= link_to "3", {:course => 3}, class: 'btn btn-default', remote: true %>
-<table id="leader-board" class="table table-striped table-bordered table-responsive sortable">
-	<thead>
-	  <tr>
-	  	<th>Rank</th>
-	    <th>User</th>
-	    <th>Time</th>
-	    <th>Pointer</th>
-	    <th>Hand</th>
-	    <th>Date</th>
-	  </tr>
-	</thead>
-	<tbody> 
-		<div id='leaderboard-scores'>
-			<% @count = 1 %> 
-		  	<%= render @scores %> 
-	    </div>
-	</tbody>
-	</table>
+<%= link_to "2", scores_path + '?' + {course: 2}.to_param, class: 'btn btn-default', remote: true %>
+<%= link_to "3", scores_path + '?' + {course: 3}.to_param, class: 'btn btn-default', remote: true %>
+</p>
+<div id="leaderboard-table">
+	<%= render 'leaderboard' %>
+</div>

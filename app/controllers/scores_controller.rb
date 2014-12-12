@@ -55,12 +55,17 @@ class ScoresController < ApplicationController
 
 	def index
 		@scores = Score.all
-		if !params[:course].nil?
+		values = Score.uniq.pluck(:course).map(&:to_s)
+		if params[:course].nil?
+			@scores = @scores.where(course: 1).order(:time)
+		elsif values.include?(params[:course])
 			@scores = @scores.where(course: params[:course]).order(:time)
 			respond_to do |format|
 				format.html 
 				format.js
 		  	end
+		else
+			redirect_to root_url
 		end
 	end
 
