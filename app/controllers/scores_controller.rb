@@ -56,10 +56,17 @@ class ScoresController < ApplicationController
 	def index
 		@scores = Score.all
 		values = Score.uniq.pluck(:course).map(&:to_s)
-		if params[:course].nil?
-			@scores = @scores.where(course: 1).order(:time)
-		elsif values.include?(params[:course])
-			@scores = @scores.where(course: params[:course]).order(:time)
+		@show_number = params[:show] || "10"
+		course = params[:course] || "1"
+		puts "course: #{course}"
+		if values.include?(course)
+			if @show_number == "All"
+				@scores = @scores.where(course: course).order(:time)
+			elsif @show_number == "10" || @show_number == "25"
+				@scores = @scores.where(course: course).order(:time).limit(@show_number.to_i)
+			else
+				redirect_to root_url
+			end
 			respond_to do |format|
 				format.html 
 				format.js

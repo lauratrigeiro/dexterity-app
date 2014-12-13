@@ -1,6 +1,11 @@
 <% provide(:title, 'Leader Board') %>
 <h1>Leader Board: Course <span id='course-number'>1</span></h1>
-<p>Course:
+<p> <%= form_tag(:scores, id: 'show-number', method: :get, remote: true, :class => "form-inline") do %>
+		<%= hidden_field_tag :course %>
+		<label>Show Top</label>
+		<%= select_tag("show", options_for_select(["10", "25", "All"], "10")) %>
+	<% end %>
+Course:
 <%= link_to "1", scores_path + '?' + {course: 1}.to_param, class: 'btn btn-default', remote: true %>
 <%= link_to "2", scores_path + '?' + {course: 2}.to_param, class: 'btn btn-default', remote: true %>
 <%= link_to "3", scores_path + '?' + {course: 3}.to_param, class: 'btn btn-default', remote: true %>

@@ -38,7 +38,7 @@ module ApplicationHelper
 						else
 							column_values
 						end
-			f.select(label, options_for_select(column_values.map { |value| [ value, value ] }, pre_select), { :itnclude_blank => false}, { :multiple => true, :size => column_values.length })
+			f.select(label, options_for_select(column_values.map { |value| [ value, value ] }, pre_select), { :include_blank => false}, { :multiple => true, :size => column_values.length })
  
 		end
 	end
