@@ -1,14 +1,23 @@
 <% provide(:title, 'Leader Board') %>
 <h1>Leader Board: Course <span id='course-number'>1</span></h1>
 <p> <%= form_tag(:scores, id: 'show-number', method: :get, remote: true, :class => "form-inline") do %>
-		<%= hidden_field_tag :course %>
+		
 		<label>Show Top</label>
-		<%= select_tag("show", options_for_select(["10", "25", "All"], "10")) %>
+		<%= select_tag("show", options_for_select(["10", "25", "All"], "10"), autocomplete: 'off') %>
+	
+	<strong>Course:</strong>
+	<div class='btn-group course-btns' data-toggle='buttons'>
+			<label class="btn btn-default active">
+				<input type='radio' name='course' value='1' id='course-1' autocomplete='off' checked>1
+			</label>
+			<label class="btn btn-default">
+				<input type='radio' name='course' value='2' id='course-2' autocomplete='off'>2
+			</label>
+			<label class="btn btn-default">
+				<input type='radio' name='course' value='3' id='course-3' autocomplete='off'>3
+			</label>	
+	</div>
 	<% end %>
-Course:
-<%= link_to "1", scores_path + '?' + {course: 1}.to_param, class: 'btn btn-default', remote: true %>
-<%= link_to "2", scores_path + '?' + {course: 2}.to_param, class: 'btn btn-default', remote: true %>
-<%= link_to "3", scores_path + '?' + {course: 3}.to_param, class: 'btn btn-default', remote: true %>
 </p>
 <div id="leaderboard-table">
 	<%= render 'leaderboard' %>
