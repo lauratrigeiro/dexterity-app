@@ -4,8 +4,8 @@
 	  	<th>Rank</th>
 	    <th>User</th>
 	    <th>Time</th>
-	    <th>Pointer</th>
-	    <th>Hand</th>
+	    <th>Pointer <%= select_tag("pointer", options_for_select(["all", "touchpad", "mouse", "trackball"], @filter_select), autocomplete: 'off', class: 'filter-select') %></th>
+	    <th>Hand <%= select_tag("hand", options_for_select(["all", "right", "left"], @filter_select), autocomplete: 'off', class: 'filter-select') %></th>
 	    <th>Date</th>
 	  </tr>
 	</thead>

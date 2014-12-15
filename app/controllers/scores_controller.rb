@@ -57,23 +57,37 @@ class ScoresController < ApplicationController
 		@scores = Score.all
 		values = Score.uniq.pluck(:course).map(&:to_s)
 		@show_number = params[:show] || "10"
+		show_values = ["10", "25", "All"]
 		course = params[:course] || "1"
-		puts "course: #{course}"
-		if values.include?(course)
-			if @show_number == "All"
+		column = params[:column] || ""
+		filter = params[:filter] || ""
+		redirect_to root_url and return if column.length > 0 && (!Score.column_names.include?(column) || 
+													  (!Score.uniq.pluck(column).map(&:to_s).include?(filter) && filter != "all"))
+
+		redirect_to root_url and return if !values.include?(course)
+		redirect_to root_url and return if !show_values.include?(@show_number)
+		if @show_number == "All"
+			if column == "" || filter == "all"
 				@scores = @scores.where(course: course).order(:time)
-			elsif @show_number == "10" || @show_number == "25"
+			else
+				@scores = @scores.where(course: course, column => filter).order(:time)
+			end
+		else 
+			if column == "" || filter == "all"
 				@scores = @scores.where(course: course).order(:time).limit(@show_number.to_i)
 			else
-				redirect_to root_url
-			end
-			respond_to do |format|
-				format.html 
-				format.js
-		  	end
-		else
-			redirect_to root_url
+				@scores = @scores.where(course: course, column => filter).order(:time).limit(@show_number.to_i)
+			end	
 		end
+		if filter.length > 0
+			@filter_select = filter
+		else
+			@filter_select = "all"
+		end
+		respond_to do |format|
+			format.html 
+			format.js
+	  	end
 	end
 
 	
