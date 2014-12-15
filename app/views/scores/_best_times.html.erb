@@ -1,7 +1,7 @@
 <div class="container" id="course-records">
 	
 	<%= form_tag :refresh_best, method: :get, remote: true, :class => "form-inline" do %>
-				<div class="center"><span class="h4"><strong>Course Records</strong></span>
+				<div class="center"><span class="h4"><strong>Course <%= @course %> Records</strong></span>
 				<%= hidden_field_tag :new_pointer, session[:pointer], id: "new-pointer" %>
 				<%= hidden_field_tag :new_hand, session[:hand], id: "new-hand" %>
 			    <%= submit_tag "Refresh Scores", name: nil, class: "btn btn-default", id: "refresh-btn" %>   
@@ -11,8 +11,8 @@
         <div class="col-md-6">
         	<% settings_pointer = session[:pointer] || "touchpad" %>
         	<% settings_hand = session[:hand] || "right" %>      
-            <% overall_best = Score.overall_best(course: 1) %>
-            <% overall_best_with_settings = Score.overall_best(course: 1, pointer: settings_pointer, 
+            <% overall_best = Score.overall_best(course: @course) %>
+            <% overall_best_with_settings = Score.overall_best(course: @course, pointer: settings_pointer, 
             													hand: settings_hand) %>
             <div id="overall-best">
 	            <% if overall_best %>
@@ -30,8 +30,8 @@
 			</div>
         </div>
         <div class="col-md-6">
-            <% personal_best = current_user.personal_best(course: 1) %>
-            <% personal_best_with_settings = current_user.personal_best(course: 1, pointer: settings_pointer												, hand: settings_hand) %>
+            <% personal_best = current_user.personal_best(course: @course) %>
+            <% personal_best_with_settings = current_user.personal_best(course: @course, pointer: settings_pointer												, hand: settings_hand) %>
             <div id="personal-best">
 	            <% if personal_best %>
 					<%= "Personal best time: #{'%.3f' % (personal_best.time / 1000.0).to_s} seconds" %>

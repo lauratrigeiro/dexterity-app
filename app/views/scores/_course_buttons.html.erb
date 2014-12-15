@@ -1,0 +1,17 @@
+<% if @course == 1 %>
+	<%= button_tag(type: 'button', id: 'start-btn', class: 'ends-btn') do %>
+			<%= content_tag(:strong, 'Start') %>
+		<% end %>
+		<br/>
+		<%= button_tag(type: 'button', id: 'left-btn', class: 'game-btn', hidden: true) do %>
+			<%= content_tag(:strong, 'Click') %>
+		<% end %>
+
+		<%= button_tag(type: 'button', id: 'right-btn', class: 'game-btn', hidden: true, disabled: true) do %>
+			<%= content_tag(:strong, 'Click') %>
+	<% end %>
+<% elsif @course == 2 %>
+	<p>Course 2 Buttons</p>
+<% else %>
+	<p>Course 3 Buttons</p>
+<% end %>

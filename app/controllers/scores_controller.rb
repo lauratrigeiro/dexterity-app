@@ -5,7 +5,7 @@ class ScoresController < ApplicationController
 		@score = current_user.scores.create(score_params)
 		if @score.save
 			@refresh = false
-			@personal_best_with_settings = current_user.personal_best(course: 1, pointer: @score.pointer,
+			@personal_best_with_settings = current_user.personal_best(course: @score.course, pointer: @score.pointer,
 														 hand: @score.hand)
 			@record = @score.time <= @personal_best_with_settings.time
 			if session[:hand] != @score.hand || session[:pointer] != @score.pointer
@@ -14,10 +14,10 @@ class ScoresController < ApplicationController
 				@refresh = true
 			end
 			if @record || @refresh
-				@overall_best = Score.overall_best(course: 1)
-				@overall_best_with_settings = Score.overall_best(course: 1, pointer: @score.pointer,
+				@overall_best = Score.overall_best(course: @score.course)
+				@overall_best_with_settings = Score.overall_best(course: @score.course, pointer: @score.pointer,
 														 hand: @score.hand)
-				@personal_best = current_user.personal_best(course: 1)
+				@personal_best = current_user.personal_best(course: @score.course)
 				@refresh = true
 			end
 
@@ -37,7 +37,9 @@ class ScoresController < ApplicationController
 
 	def new
 		@score = Score.new
-	#	@session_hand = session[:hand] || "right"
+		@course = request.path[-1].to_i
+		redirect_to root_url and return if !(1..3).include?(@course)
+		puts "course; #{@course}"
 	end
 
 	def refresh_best
