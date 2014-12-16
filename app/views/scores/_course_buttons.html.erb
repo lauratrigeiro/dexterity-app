@@ -1,17 +1,54 @@
-<% if @course == 1 %>
-	<%= button_tag(type: 'button', id: 'start-btn', class: 'ends-btn') do %>
-			<%= content_tag(:strong, 'Start') %>
-		<% end %>
-		<br/>
-		<%= button_tag(type: 'button', id: 'left-btn', class: 'game-btn', hidden: true) do %>
-			<%= content_tag(:strong, 'Click') %>
-		<% end %>
+<div id='course-btns'>
+	<% if @course == 1 %>
+		<%= button_tag(type: 'button', id: 'start-btn', class: 'ends-btn') do %>
+				<%= content_tag(:strong, 'Start') %>
+			<% end %>
+			<br/>
+			<%= button_tag(type: 'button', id: 'left-btn', class: 'game-btn', hidden: true) do %>
+				<%= content_tag(:strong, 'Click') %>
+			<% end %>
 
-		<%= button_tag(type: 'button', id: 'right-btn', class: 'game-btn', hidden: true, disabled: true) do %>
-			<%= content_tag(:strong, 'Click') %>
+			<%= button_tag(type: 'button', id: 'right-btn', class: 'game-btn', hidden: true, disabled: true) do %>
+				<%= content_tag(:strong, 'Click') %>
+		<% end %>
+	<% elsif @course == 2 %>
+		<p id="scroll-down">Scroll down!</p>
+		<!-- First row of buttons -->
+		<div>
+			<%= button_tag(type: 'button', id: 'btn-2', class: 'game-btn', hidden: true, disabled: true) do %>
+				<%= content_tag(:strong, 'Click') %>
+			<% end %>
+		</div>
+		<!-- Second row of buttons -->
+		<div class="row btn-row">
+			<div class="col-md-6">
+				<%= button_tag(type: 'button', id: 'btn-1', class: 'game-btn next-btn', hidden: true) do %>
+					<%= content_tag(:strong, 'Click') %>
+				<% end %>
+			</div>
+			<div class="col-md-6">
+				<%= button_tag(type: 'button', id: 'btn-3', class: 'game-btn', hidden: true, disabled: true) do %>
+					<%= content_tag(:strong, 'Click') %>
+				<% end %>
+			</div>
+		</div>
+		<!-- Third row of buttons -->
+		<div class="row btn-row">
+			<div class="col-md-6">
+				<%= button_tag(type: 'button', id: 'start-btn', class: 'ends-btn') do %>
+					<%= content_tag(:strong, 'Start') %>
+				<% end %>
+				<%= button_tag(type: 'button', id: 'btn-5', class: 'game-btn', hidden: true, disabled: true) do %>
+					<%= content_tag(:strong, 'Click') %>
+				<% end %>
+			</div>
+			<div class="col-md-6">
+				<%= button_tag(type: 'button', id: 'btn-4', class: 'game-btn', hidden: true, disabled: true) do %>
+					<%= content_tag(:strong, 'Click') %>
+				<% end %>
+			</div>
+		</div>
+	<% else %>
+		<p>Course 3 Buttons</p>
 	<% end %>
-<% elsif @course == 2 %>
-	<p>Course 2 Buttons</p>
-<% else %>
-	<p>Course 3 Buttons</p>
-<% end %>
+</div>

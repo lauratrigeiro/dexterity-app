@@ -1,6 +1,8 @@
 var leftClicks = 0;
 var rightClicks = 0;
 var startTime;
+var count = 1;
+var nextId;
 
 $(".scores.new").ready(function() {
 	// User chooses pointer setting
@@ -28,42 +30,85 @@ $(".scores.new").ready(function() {
 		startTime = +new Date();
 		$(this).hide();
 		$("#selections").hide();
+		$("#scroll-down").hide();
 		$(".game-btn").show();
 	});
 	
-	$("#left-btn").click(function(){
-		leftClicks++;
-		$("#right-btn").attr('disabled', false);
-		$("#left-btn").attr('disabled', true);
-	});
+	if($("#course").val() == 1) {
+		$("#left-btn").click(function(){
+			leftClicks++;
+			$("#right-btn").attr('disabled', false);
+			$("#left-btn").attr('disabled', true);
+		});
 
-	$("#right-btn").click(function(){
-		rightClicks++;
-		// Game is complete, show 'Done' button
-		if(leftClicks == 5 && rightClicks == 5) {
-			$(".game-btn").hide();
-			$("#done-btn").show();
-			$("#done-btn").click(function(){
-				// Game is done, calculate time and remember game settings
-				var diff = +new Date() - startTime;
-				$("#score-time").val(diff);
-				$("#pointer").val($.trim($(".pointer-btns .active").text()));
-				$("#hand").val($.trim($(".hand-btns .active").text()));
-				resetGame();
-			});
-		}
-		$("#right-btn").attr('disabled', true);
-		$("#left-btn").attr('disabled', false);
-	});
+		$("#right-btn").click(function(){
+			rightClicks++;
+			// Game is complete, show 'Done' button
+			if(leftClicks == 5 && rightClicks == 5) {
+				$(".game-btn").hide();
+				$("#done-btn").show();
+				 $("#done-btn").click(function(){
+				 	onDone();
+					resetGame();
+				});
+			}
+			$("#right-btn").attr('disabled', true);
+			$("#left-btn").attr('disabled', false);
+		});
+	}
 
+	else if($("#course").val() == 2) {
+		$("#course-btns").on('click', '.next-btn', (function() {
+			$(this).attr('disabled', true);
+			$(this).removeClass('next-btn');
+			count++;
+			if(count > 10) {
+				nextId = "1";
+				$(".game-btn").hide();
+				$("#done-btn").show();
+				 $("#done-btn").click(function(){
+				 	onDone();
+					resetGame();
+				});
+			}
+			else if(count == 10) {
+				nextId = "5";
+			}
+			else if(count > 5) {
+				nextId = (10-count).toString();
+			}
+			else {
+				nextId = count.toString();
+			}
+	//		console.log("next id: " + "#btn-"+nextId);
+			$('#btn-'+nextId).addClass('next-btn');
+			$('#btn-'+nextId).attr('disabled', false);
+		}));
+	}
+
+	else if($("#course").val() == 3) {
+		alert("Welcome to Course 3!");
+	}
+	else {
+		alert("Not a valid course!");
+	}
 });
+
+function onDone() {
+	// Game is done, calculate time and remember game settings
+	var diff = +new Date() - startTime;
+	$("#score-time").val(diff);
+	$("#pointer").val($.trim($(".pointer-btns .active").text()));
+	$("#hand").val($.trim($(".hand-btns .active").text()));
+}
 
 // Put game back to start state, except for right/left in parent method
 function resetGame() {
-		$("#start-btn").show();
-		$("#selections").show();
-		$("#done-btn").hide();
-		leftClicks = 0;
-		rightClicks = 0;
-	}
+	$("#start-btn").show();
+	$("#selections").show();
+	$("#done-btn").hide();
+	leftClicks = 0;
+	rightClicks = 0;
+	count = 1;
+}
 

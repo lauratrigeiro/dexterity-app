@@ -168,6 +168,9 @@ cursor: pointer;
   border: solid blue;
 }
 
+#selections {
+  margin-bottom: 40px;
+}
 .pointer-btns {
   margin-right: 10px;
 }
@@ -175,9 +178,15 @@ cursor: pointer;
 #buttons {
   text-align: center;
 }
+
 .game-btn {
   font-size: 24px;
   border-color: blue;
+}
+
+.num-btn {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 #left-btn {
@@ -185,7 +194,6 @@ cursor: pointer;
 }
 
 .ends-btn {
-  margin-top: 40px;
   border-color: green;
   color: green;
   font-size: 30px;
@@ -197,3 +205,6 @@ button[disabled=disabled], button:disabled {
   border: none;
 }
 
+.btn-row {
+  margin-top: 80px;
+}
