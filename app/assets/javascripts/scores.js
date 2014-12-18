@@ -3,6 +3,7 @@ var rightClicks = 0;
 var startTime;
 var count = 1;
 var nextId;
+var course_3_count = 0;
 
 $(".scores.new").ready(function() {
 	// User chooses pointer setting
@@ -32,6 +33,9 @@ $(".scores.new").ready(function() {
 		$("#selections").hide();
 		$("#scroll-down").hide();
 		$(".game-btn").show();
+		if($("#course").val() == 3) {
+			$("#done-btn").show();
+		}
 	});
 	
 	if($("#course").val() == 1) {
@@ -87,7 +91,21 @@ $(".scores.new").ready(function() {
 	}
 
 	else if($("#course").val() == 3) {
-		alert("Welcome to Course 3!");
+			console.log("course 3");
+	//	$("#course-btns").on('click', '#course-3-btn', (function() {
+		//	$(this).attr('disabled', true);
+	//		alert("hey there! " + course_3_count);
+		//	course_3_count += 1;
+	//		$(".game-btn").hide();
+			$("#done-btn").click(function(){
+					course_3_count += 1;
+				 	onDone();
+		//			resetGame();
+				});
+		//	onDone();
+		//	$("#done-form").submit();
+			//$('#done-form').closest('form').trigger('submit');
+	//	}));
 	}
 	else {
 		alert("Not a valid course!");
@@ -96,8 +114,13 @@ $(".scores.new").ready(function() {
 
 function onDone() {
 	// Game is done, calculate time and remember game settings
-	var diff = +new Date() - startTime;
-	$("#score-time").val(diff);
+	if($("#course").val() == 3) {
+		$("#score-time").val(course_3_count);
+	} 
+	else {
+		var diff = +new Date() - startTime;
+		$("#score-time").val(diff);
+	}
 	$("#pointer").val($.trim($(".pointer-btns .active").text()));
 	$("#hand").val($.trim($(".hand-btns .active").text()));
 }

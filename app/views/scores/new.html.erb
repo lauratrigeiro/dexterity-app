@@ -1,6 +1,6 @@
 <h1>Test your dexterity on Course <%= @course %>!</h1>
 <div id="repeat-form"></div>
-<%= render 'best_times' %>
+<%= render 'best_times' if @course != 3 %>
 <%= render 'directions' %>
 <div id='buttons'>
 	<%= render 'settings' %>
@@ -12,6 +12,12 @@
 		<%= f.hidden_field 'course', value: @course, id: 'course' %>
 		<%= f.hidden_field 'pointer', id: 'pointer' %>
 		<%= f.hidden_field 'hand', id: 'hand' %>
-		<%= f.submit("Done!", id: 'done-btn', class: 'ends-btn', hidden: true) %>
+		<% if @course == 3 %>
+			<% done_btn_label = "Click" %>
+		<% else %>
+			<% done_btn_label = "Done!" %>
+		<% end %>
+		<%= f.submit(done_btn_label, id: 'done-btn', class: 'ends-btn', hidden: true) %>
+	
 	<% end %>
 </div>

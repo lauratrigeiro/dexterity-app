@@ -1,7 +1,13 @@
-$('#repeat-form').html("<%= j (render 'repeat') %>");
-<% if @refresh %>
-	$('#overall-best').text('<%= "Overall best time: #{'%.3f' % (@overall_best.time / 1000.0).to_s} seconds" %>');
-	$('#overall-best-settings').text('<%= "Overall best time with #{session[:pointer]} and #{session[:hand]} hand: #{'%.3f' % (@overall_best_with_settings.time / 1000.0).to_s} seconds" %>');
-	$('#personal-best').text('<%= "Personal best time: #{'%.3f' % (@personal_best.time / 1000.0).to_s} seconds" %>');
-	$('#personal-best-settings').text('<%= "Personal best time with #{session[:pointer]} and #{session[:hand]} hand: #{'%.3f' % (@personal_best_with_settings.time / 1000.0).to_s} seconds" %>');
+<% if @score.course == 3 %>
+	// move button to new random position
+	console.log("number of clicks: <%= @score.time %>")
+	$("#test").text("X".repeat(<%= @score.time %>));
+<% else %>
+	$('#repeat-form').html("<%= j (render 'repeat') %>");
+	<% if @refresh %>
+		$('#overall-best').text('<%= "Overall best time: #{'%.3f' % (@overall_best.time / 1000.0).to_s} seconds" %>');
+		$('#overall-best-settings').text('<%= "Overall best time with #{session[:pointer]} and #{session[:hand]} hand: #{'%.3f' % (@overall_best_with_settings.time / 1000.0).to_s} seconds" %>');
+		$('#personal-best').text('<%= "Personal best time: #{'%.3f' % (@personal_best.time / 1000.0).to_s} seconds" %>');
+		$('#personal-best-settings').text('<%= "Personal best time with #{session[:pointer]} and #{session[:hand]} hand: #{'%.3f' % (@personal_best_with_settings.time / 1000.0).to_s} seconds" %>');
+	<% end %>
 <% end %>

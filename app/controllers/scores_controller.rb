@@ -2,25 +2,40 @@ class ScoresController < ApplicationController
 	# respond_to :html, :js
 
 	def create
-		@score = current_user.scores.create(score_params)
-		if @score.save
-			@refresh = false
-			@personal_best_with_settings = current_user.personal_best(course: @score.course, pointer: @score.pointer,
-														 hand: @score.hand)
-			@record = @score.time <= @personal_best_with_settings.time
-			if session[:hand] != @score.hand || session[:pointer] != @score.pointer
-				session[:hand] = @score.hand
-				session[:pointer] = @score.pointer
-				@refresh = true
+		puts "in create"
+		puts "whole params: #{params[:score]}"
+		puts "score time: #{params[:score][:time]}"
+		puts "score course #{params[:score][:course]}"
+	#	if params[:score] && params[:score][:course] && params[:score][:course] == 3 && params[:score][:time] && params[:score][:time] > 1
+		puts "course true? #{params[:score][:course].to_i == 3}"
+		puts "time true? #{params[:score][:time].to_i > 1}" 
+		puts "overall true? #{params[:score][:course].to_i == 3 && params[:score][:time].to_i > 1}"
+		if params[:score][:course].to_i == 3 && params[:score][:time].to_i > 1
+			puts "GET IN HERE!"
+			@score = current_user.scores.last
+			@score.time = params[:score][:time]
+		else
+			@score = current_user.scores.create(score_params)
+		end
+		if @score.save || (@score && @score.course == 3)
+			if @score.course != 3
+				@refresh = false
+				@personal_best_with_settings = current_user.personal_best(course: @score.course, pointer: @score.pointer,
+															 hand: @score.hand)
+				@record = @score.time <= @personal_best_with_settings.time
+				if session[:hand] != @score.hand || session[:pointer] != @score.pointer
+					session[:hand] = @score.hand
+					session[:pointer] = @score.pointer
+					@refresh = true
+				end
+				if @record || @refresh
+					@overall_best = Score.overall_best(course: @score.course)
+					@overall_best_with_settings = Score.overall_best(course: @score.course, pointer: @score.pointer,
+															 hand: @score.hand)
+					@personal_best = current_user.personal_best(course: @score.course)
+					@refresh = true
+				end
 			end
-			if @record || @refresh
-				@overall_best = Score.overall_best(course: @score.course)
-				@overall_best_with_settings = Score.overall_best(course: @score.course, pointer: @score.pointer,
-														 hand: @score.hand)
-				@personal_best = current_user.personal_best(course: @score.course)
-				@refresh = true
-			end
-
 			respond_to do |format|
 			  format.html do
 			  	flash[:success] = 
@@ -42,7 +57,7 @@ class ScoresController < ApplicationController
 		puts "course; #{@course}"
 	end
 
-	def refresh_best
+	def refresh_best	
 		@overall_best = Score.overall_best(course: 1)
 		@overall_best_with_settings = Score.overall_best(course: 1, pointer: params[:new_pointer],
 														 hand: params[:new_hand])
