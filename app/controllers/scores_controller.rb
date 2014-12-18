@@ -2,15 +2,7 @@ class ScoresController < ApplicationController
 	# respond_to :html, :js
 
 	def create
-		puts "in create"
-		puts "whole params: #{params[:score]}"
-		puts "score time: #{params[:score][:time]}"
-		puts "score course #{params[:score][:course]}"
-	#	if params[:score] && params[:score][:course] && params[:score][:course] == 3 && params[:score][:time] && params[:score][:time] > 1
-		puts "course true? #{params[:score][:course].to_i == 3}"
-		puts "time true? #{params[:score][:time].to_i > 1}" 
-		puts "overall true? #{params[:score][:course].to_i == 3 && params[:score][:time].to_i > 1}"
-		if params[:score][:course].to_i == 3 && params[:score][:time].to_i > 1
+		if params[:score] && params[:score][:course] && params[:score][:course].to_i == 3 && params[:score][:time] && params[:score][:time].to_i > 1
 			puts "GET IN HERE!"
 			@score = current_user.scores.last
 			@score.time = params[:score][:time]

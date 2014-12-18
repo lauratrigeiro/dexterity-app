@@ -34,6 +34,7 @@ $(".scores.new").ready(function() {
 		$("#scroll-down").hide();
 		$(".game-btn").show();
 		if($("#course").val() == 3) {
+			$("#done-btn").addClass("course-3-btn");
 			$("#done-btn").show();
 		}
 	});
@@ -91,22 +92,14 @@ $(".scores.new").ready(function() {
 	}
 
 	else if($("#course").val() == 3) {
-			console.log("course 3");
-	//	$("#course-btns").on('click', '#course-3-btn', (function() {
-		//	$(this).attr('disabled', true);
-	//		alert("hey there! " + course_3_count);
-		//	course_3_count += 1;
-	//		$(".game-btn").hide();
 			$("#done-btn").click(function(){
-					course_3_count += 1;
-				 	onDone();
-		//			resetGame();
-				});
-		//	onDone();
-		//	$("#done-form").submit();
-			//$('#done-form').closest('form').trigger('submit');
-	//	}));
+				var rect = $(".directions").get(0).getBoundingClientRect();
+				console.log(rect.top, rect.right, rect.bottom, rect.left);
+				course_3_count += 1;
+			 	onDone();
+			});
 	}
+
 	else {
 		alert("Not a valid course!");
 	}

@@ -1,7 +1,16 @@
 <% if @score.course == 3 %>
 	// move button to new random position
-	console.log("number of clicks: <%= @score.time %>")
-	$("#test").text("X".repeat(<%= @score.time %>));
+	var buttonWidth = 7;
+	var buttonHeight = 5;
+	var leftPos = Math.random()*(100-buttonWidth);
+	var topPos = Math.random()*(100-buttonHeight);
+	$("#done-btn").css({
+		position: "absolute",
+		left: leftPos + "%",
+		top: topPos + "%"
+	});
+	console.log("number of clicks: <%= @score.time %>");
+//	$("#test").text("X".repeat(<%= @score.time %>));
 <% else %>
 	$('#repeat-form').html("<%= j (render 'repeat') %>");
 	<% if @refresh %>
