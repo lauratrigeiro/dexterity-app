@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 		flash[:success] = "So you may be wondering - is Course 3 broken? The answer is 'no.' 
 		Course 3 is an evil experiment of mine meant to test user persistence: 
 		how long is the user going to click randomly appearing buttons before giving up? 
-		Congratulations for participating you clicked #{current_user.scores.last.time} times! 
+		Congratulations for participating - you clicked #{current_user.scores.last.time} times! 
 		Course 3 records should now appear for you."
 	end
     session[:history] = request.url
