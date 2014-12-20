@@ -93,10 +93,18 @@ $(".scores.new").ready(function() {
 
 	else if($("#course").val() == 3) {
 			$("#done-btn").click(function(){
-				var rect = $(".directions").get(0).getBoundingClientRect();
-				console.log(rect.top, rect.right, rect.bottom, rect.left);
+			// 	method to find absolute location of an object
+			//	var rect = $(".directions").get(0).getBoundingClientRect();
+			//	console.log(rect.top, rect.right, rect.bottom, rect.left);
 				course_3_count += 1;
 			 	onDone();
+
+				// The following works in browsers except for Firefox, 
+				// so had to be abandoned.
+			 	// window.onbeforeunload = function(){ 
+					// alert("Course 3 Explanation!");
+			 	// 	return 'The thing about Course 3...';
+			 	//	});
 			});
 	}
 
