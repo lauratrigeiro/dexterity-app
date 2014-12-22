@@ -1,4 +1,5 @@
 <% if @score.course == 3 %>
+	$("#course-form").html("<%= j (render 'course_form') %>");
 	// move button to new random position
 	var buttonWidth = 7;
 	var buttonHeight = 5;
@@ -10,7 +11,7 @@
 		top: topPos + "%"
 	});
 	console.log("number of clicks: <%= @score.time %>");
-//	$("#test").text("X".repeat(<%= @score.time %>));
+
 <% else %>
 	$('#repeat-form').html("<%= j (render 'repeat') %>");
 	<% if @refresh %>

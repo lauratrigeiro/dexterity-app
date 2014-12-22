@@ -14,12 +14,13 @@ class ApplicationController < ActionController::Base
   def store_history
     session[:history] ||= ""
     if current_user && session[:history] == course_3_url && current_user.scores.last.course == 3
-		flash[:success] = "So you may be wondering - is Course 3 broken? The answer is 'no.' 
+      count = current_user.scores.last.time
+		  flash[:success] = "So you may be wondering - is Course 3 broken? The answer is 'no.' 
 		Course 3 is an evil experiment of mine meant to test user persistence: 
 		how long is the user going to click randomly appearing buttons before giving up? 
-		Congratulations for participating - you clicked #{current_user.scores.last.time} times! 
+		Congratulations for participating - you clicked #{count} #{'time'.pluralize(count)}! 
 		Course 3 records should now appear for you."
 	end
-    session[:history] = request.url
+    session[:history] = request.url if request.get?
   end 
 end

@@ -2,14 +2,8 @@ class ScoresController < ApplicationController
 	# respond_to :html, :js
 
 	def create
-		if params[:score] && params[:score][:course] && params[:score][:course].to_i == 3 && params[:score][:time] && params[:score][:time].to_i > 1
-			puts "GET IN HERE!"
-			@score = current_user.scores.last
-			@score.time = params[:score][:time]
-		else
-			@score = current_user.scores.create(score_params)
-		end
-		if @score.save || (@score && @score.course == 3)
+		@score = current_user.scores.create(score_params)
+		if @score.save
 			if @score.course != 3
 				@refresh = false
 				@personal_best_with_settings = current_user.personal_best(course: @score.course, pointer: @score.pointer,
@@ -36,7 +30,23 @@ class ScoresController < ApplicationController
 			  end
 			  format.js
 			end
+		else
+			render 'static_pages/home'
+		end
+	end
 
+	def update
+		@score = Score.find(params[:id])
+		@score.update(time: params[:score][:time])
+		if @score.save
+			respond_to do |format|
+			  format.html do
+			  	flash[:error] = 
+					"Please enable JavaScript to play this course." 
+				redirect_to new_score_path 
+			  end
+			  format.js
+			end
 		else
 			render 'static_pages/home'
 		end
@@ -46,7 +56,6 @@ class ScoresController < ApplicationController
 		@score = Score.new
 		@course = request.path[-1].to_i
 		redirect_to root_url and return if !(1..3).include?(@course)
-		puts "course; #{@course}"
 	end
 
 	def refresh_best	

@@ -3,7 +3,7 @@ var rightClicks = 0;
 var startTime;
 var count = 1;
 var nextId;
-var course_3_count = 0;
+var course_3_count;
 
 $(".scores.new").ready(function() {
 	// User chooses pointer setting
@@ -29,6 +29,7 @@ $(".scores.new").ready(function() {
 	// Start game
 	$("#start-btn").click(function(){
 		startTime = +new Date();
+		course_3_count = 0
 		$(this).hide();
 		$("#selections").hide();
 		$("#scroll-down").hide();
@@ -36,6 +37,8 @@ $(".scores.new").ready(function() {
 		if($("#course").val() == 3) {
 			$("#done-btn").addClass("course-3-btn");
 			$("#done-btn").show();
+	//		Turbolinks.pagesCached(0);
+	//		alert("turbolink cache: " + Turbolinks.pagesCached());
 		}
 	});
 	
@@ -92,11 +95,16 @@ $(".scores.new").ready(function() {
 	}
 
 	else if($("#course").val() == 3) {
-			$("#done-btn").click(function(){
+			$("#buttons").on('click', '#done-btn', (function(){
 			// 	method to find absolute location of an object
 			//	var rect = $(".directions").get(0).getBoundingClientRect();
 			//	console.log(rect.top, rect.right, rect.bottom, rect.left);
 				course_3_count += 1;
+				console.log("Are we getting here? " + course_3_count);
+				// if(course_3_count == 2) {
+				// 	$("#done-form").attr("method", "patch");
+				// 	console.log("patch now?");
+				// }
 			 	onDone();
 
 				// The following works in browsers except for Firefox, 
@@ -105,7 +113,7 @@ $(".scores.new").ready(function() {
 					// alert("Course 3 Explanation!");
 			 	// 	return 'The thing about Course 3...';
 			 	//	});
-			});
+			}));
 	}
 
 	else {
@@ -115,8 +123,12 @@ $(".scores.new").ready(function() {
 
 function onDone() {
 	// Game is done, calculate time and remember game settings
-	if($("#course").val() == 3) {
+	if(course_3_count > 0) {
 		$("#score-time").val(course_3_count);
+		// if(course_3_count == 1) {
+		// 	Turbolinks.pagesCached(10);
+		// 	alert("turbolink cache now: " + Turbolinks.pagesCached());
+		// }
 	} 
 	else {
 		var diff = +new Date() - startTime;

@@ -1,0 +1,30 @@
+<% if @score && @score.course == 3 && @score.time && @score.time > 0 %>
+	<%= form_for(@score, remote: true, id: 'done-form') do |f| %>
+		<%= f.hidden_field 'time', id: 'score-time' %>
+		<%= f.hidden_field 'course', value: @course, id: 'course' %>
+		<%= f.hidden_field 'pointer', id: 'pointer' %>
+		<%= f.hidden_field 'hand', id: 'hand' %>
+			<% done_btn_label = "Click" %>
+			<div id="btn-window">
+				<%= f.submit(done_btn_label, id: 'done-btn', class: 'ends-btn course-3-btn', hidden: false) %>
+			</div>
+	<% end %>
+
+<% else %>
+	<%= form_for(@score, remote: true, id: 'done-form') do |f| %>
+		<%= f.hidden_field 'time', id: 'score-time' %>
+		<%= f.hidden_field 'course', value: @course, id: 'course' %>
+		<%= f.hidden_field 'pointer', id: 'pointer' %>
+		<%= f.hidden_field 'hand', id: 'hand' %>
+
+		<% if @course == 3 %>
+			<% done_btn_label = "Click" %>
+			<div id="btn-window">
+				<%= f.submit(done_btn_label, id: 'done-btn', class: 'ends-btn', hidden: true) %>
+			</div>
+		<% else %>
+			<% done_btn_label = "Done!" %>
+			<%= f.submit(done_btn_label, id: 'done-btn', class: 'ends-btn', hidden: true) %>
+		<% end %>
+	<% end %>
+<% end %>

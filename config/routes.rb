@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :users, :only => [:show, :index]
   get 'users/:id' => 'users#show'
   # get 'scores/new' 
-  resources :scores, :only => [:new, :create, :index]
+  resources :scores, :only => [:new, :create, :update, :index]
   get 'course_1' => 'scores#new'
   get 'course_2' => 'scores#new'
   get 'course_3' => 'scores#new'
