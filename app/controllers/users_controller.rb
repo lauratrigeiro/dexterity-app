@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
   	@unordered_scores = filter_column
-  	@unordered_scores ||= @user.scores
+  	@unordered_scores ||= @user.scores.where(:course => ['1', '2'])
   	@scores = @unordered_scores.order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
   end
 
@@ -31,8 +31,9 @@ class UsersController < ApplicationController
   
   def sort_direction
   	# %w[asc desc] is equiv. to ["asc", "desc"]
+    default_direction = params[:column] == "course" && params[:filter] == "3" ? "desc" : "asc"
     %w[asc desc].include?(params[:direction]) ?  
-    			params[:direction] : "asc"
+    			params[:direction] : default_direction
  	# The following line works, but is open to SQL injection.
  #   params[:direction] || "asc"
   end
@@ -44,6 +45,10 @@ class UsersController < ApplicationController
       params[:column] = "pointer"
       params[:filter] = params[:users][:pointer_select]
   end
+  if params[:column] == "course" && params[:filter] == "3" && !@user.played_course_3?
+    flash[:danger] = "You must play Course 3 at least once to view scores."
+    return nil
+  end
     params[:column] ||= session[:column]
     session[:column] = params[:column]
   #	filter = params[:filter]
@@ -53,7 +58,11 @@ class UsersController < ApplicationController
   	if Score.column_names.include?(params[:column]) && (
       (params[:filter].class == Array && values.to_set.intersect?(params[:filter].to_set)) ||
           (params[:filter].class != Array && values.include?(params[:filter])))
-     		@user.scores.where({params[:column] => params[:filter]})
+        if params[:column] == "course"
+     		  @user.scores.where({params[:column] => params[:filter]})
+        else
+          @user.scores.where({params[:column] => params[:filter], :course => ['1', '2']})
+        end
   	else
   		nil
   	end

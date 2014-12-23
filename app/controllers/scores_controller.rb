@@ -1,4 +1,5 @@
 class ScoresController < ApplicationController
+	before_action :authenticate_user!
 	# respond_to :html, :js
 
 	def create
@@ -41,7 +42,7 @@ class ScoresController < ApplicationController
 		if @score.save
 			respond_to do |format|
 			  format.html do
-			  	flash[:error] = 
+			  	flash[:danger] = 
 					"Please enable JavaScript to play this course." 
 				redirect_to new_score_path 
 			  end
