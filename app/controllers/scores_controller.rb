@@ -84,23 +84,31 @@ class ScoresController < ApplicationController
 
 		redirect_to root_url and return if !values.include?(course)
 		redirect_to root_url and return if !show_values.include?(@show_number)
-		if @show_number == "All"
-			if column == "" || filter == "all"
-				@scores = @scores.where(course: course).order(:time)
-			else
-				@scores = @scores.where(course: course, column => filter).order(:time)
-			end
-		else 
-			if column == "" || filter == "all"
-				@scores = @scores.where(course: course).order(:time).limit(@show_number.to_i)
-			else
-				@scores = @scores.where(course: course, column => filter).order(:time).limit(@show_number.to_i)
-			end	
-		end
-		if filter.length > 0
-			@filter_select = filter
+		if course == "3" && !current_user.played_course_3?
+			@course_3_error = true
+		 	flash[:danger] = 
+		 			"You must play Course 3 at least once to view top scores."
 		else
-			@filter_select = "all"
+			@course_3_error = false
+			direction = course == "3" ? :desc : :asc
+			if @show_number == "All"
+				if column == "" || filter == "all"
+					@scores = @scores.where(course: course).order(time: direction)
+				else
+					@scores = @scores.where(course: course, column => filter).order(time: direction)
+				end
+			else 
+				if column == "" || filter == "all"
+					@scores = @scores.where(course: course).order(time: direction).limit(@show_number.to_i)
+				else
+					@scores = @scores.where(course: course, column => filter).order(time: direction).limit(@show_number.to_i)
+				end	
+			end
+			if filter.length > 0
+				@filter_select = filter
+			else
+				@filter_select = "all"
+			end
 		end
 		respond_to do |format|
 			format.html 

@@ -1,3 +1,13 @@
-$('#course-number').html("<%= params[:course] %>");
-$('#leaderboard-table').html("<%= j (render 'leaderboard') %>");
-//nalert("<%= @show_number %>");
+if(<%= @course_3_error %>) {
+	$('#flash-messages').html("<%= j (render 'layouts/messages') %>");
+	$(".course-btns .active input").prop('checked', false);
+	$(".course-btns .active").removeClass("active");
+	course_id = "#course-" + $('#course-number').text()
+	$(course_id).parent().addClass("active");
+	$(".course-btns .active input").prop('checked', true);
+}	
+else {
+	$('#course-number').html("<%= params[:course] %>");
+	$('#leaderboard-table').html("<%= j (render 'leaderboard') %>");
+}
+//alert("<%= @show_number %>");

@@ -66,4 +66,8 @@ class User < ActiveRecord::Base
   def personal_best(opts = {})
       self.scores.where(opts).order(:time).first
   end
+
+  def played_course_3?
+      self.scores.where(course: 3).count > 0
+  end
 end
