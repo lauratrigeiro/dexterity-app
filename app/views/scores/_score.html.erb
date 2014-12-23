@@ -1,6 +1,6 @@
 <% if params[:action] == 'show' %>
 	<tr id="score-<%= score.id %>">
-	  <td><%= '%.3f' % (score.time / 1000.0).to_s %></td>
+	  <td><%= display_time(score.time, score.course) %></td>
 	  <td><%= score.course %></td>
 	  <td><%= score.pointer %></td>
 	  <td><%= score.hand %></td>
@@ -10,7 +10,7 @@
   	<tr id="score-<%= score.id %>">
 	  <td><%= @count %>
 	  <td><%= score.user.username %></td>
-	  <td><%= '%.3f' % (score.time / 1000.0).to_s %></td>
+	  <td><%= display_time(score.time, score.course) %></td>
 	  <td><%= score.pointer %></td>
 	  <td><%= score.hand %></td>
 	  <td><%= score.created_at.strftime("%B %e, %Y") %></td>

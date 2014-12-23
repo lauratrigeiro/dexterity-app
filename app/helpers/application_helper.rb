@@ -10,6 +10,10 @@ module ApplicationHelper
 		end
 	end
 
+	def display_time(db_time, course = 1)
+		course == 3 ? db_time : '%.3f' % (db_time / 1000.0).to_s
+	end
+
 	# Sorts a table by the assigned column
 	def sortable(column, title = nil)
 		title ||= column.titleize

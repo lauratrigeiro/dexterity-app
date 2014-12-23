@@ -59,11 +59,11 @@ class ScoresController < ApplicationController
 	end
 
 	def refresh_best	
-		@overall_best = Score.overall_best(course: 1)
-		@overall_best_with_settings = Score.overall_best(course: 1, pointer: params[:new_pointer],
+		@overall_best = Score.overall_best(course: params[:course])
+		@overall_best_with_settings = Score.overall_best(course: params[:course], pointer: params[:new_pointer],
 														 hand: params[:new_hand])
-		@personal_best = current_user.personal_best(course: 1)
-		@personal_best_with_settings = current_user.personal_best(course: 1, pointer: params[:new_pointer],
+		@personal_best = current_user.personal_best(course: params[:course])
+		@personal_best_with_settings = current_user.personal_best(course: params[:course], pointer: params[:new_pointer],
 														 hand: params[:new_hand])
 		respond_to do |format|
 			format.html 
