@@ -6,6 +6,10 @@ var nextId;
 var course_3_count;
 
 $(".scores.new").ready(function() {
+
+	// correcting course 2 early stopping leads to course 1 start btn being disabled after stopping early
+	$("#start-btn").prop('disabled', false);
+
 	// User chooses pointer setting
 	$(".pointer-btns .btn").click(function() {	
 		if(!$(this).hasClass("active")) {
@@ -28,25 +32,20 @@ $(".scores.new").ready(function() {
 
 	// Start game
 	$("#start-btn").click(function(){
-		startTime = +new Date();
 		course_3_count = 0
 		$(this).hide();
 		$("#selections").hide();
 		$("#scroll-down").hide();
+		setupGame($("#course").val());
 		$(".game-btn").show();
-		if($("#course").val() == 3) {
-			$("#done-btn").addClass("course-3-btn");
-			$("#done-btn").show();
-	//		Turbolinks.pagesCached(0);
-	//		alert("turbolink cache: " + Turbolinks.pagesCached());
-		}
+		startTime = +new Date();	
 	});
 	
 	if($("#course").val() == 1) {
 		$("#left-btn").click(function(){
 			leftClicks++;
-			$("#right-btn").attr('disabled', false);
-			$("#left-btn").attr('disabled', true);
+			$("#right-btn").prop('disabled', false);
+			$("#left-btn").prop('disabled', true);
 		});
 
 		$("#right-btn").click(function(){
@@ -60,14 +59,16 @@ $(".scores.new").ready(function() {
 					resetGame();
 				});
 			}
-			$("#right-btn").attr('disabled', true);
-			$("#left-btn").attr('disabled', false);
+			else {
+			$("#right-btn").prop('disabled', true);
+			$("#left-btn").prop('disabled', false);
+			}
 		});
 	}
 
 	else if($("#course").val() == 2) {
 		$("#course-btns").on('click', '.next-btn', (function() {
-			$(this).attr('disabled', true);
+			$(this).prop('disabled', true);
 			$(this).removeClass('next-btn');
 			count++;
 			if(count > 10) {
@@ -88,9 +89,9 @@ $(".scores.new").ready(function() {
 			else {
 				nextId = count.toString();
 			}
-	//		console.log("next id: " + "#btn-"+nextId);
+		//	console.log("next id: " + "#btn-"+nextId);
 			$('#btn-'+nextId).addClass('next-btn');
-			$('#btn-'+nextId).attr('disabled', false);
+			$('#btn-'+nextId).prop('disabled', false);
 		}));
 	}
 
@@ -120,6 +121,30 @@ $(".scores.new").ready(function() {
 		alert("Not a valid course!");
 	}
 });
+
+function setupGame(course) {
+	if (course == 1) {
+		$("#right-btn").prop('disabled', true);
+		$("#left-btn").prop('disabled', false);
+	}
+	else if (course == 2) {
+		if ($("#btn-1").prop('disabled') == true) {
+			$("#course-btns .game-btn:enabled").removeClass('next-btn');
+			$("#course-btns .game-btn:enabled").prop('disabled', true);
+			$('#btn-1').addClass('next-btn');
+			$('#btn-1').prop('disabled', false);
+		}
+	 }
+	else if(course == 3) {
+			$("#done-btn").addClass("course-3-btn");
+			$("#done-btn").show();
+	//		Turbolinks.pagesCached(0);
+	//		alert("turbolink cache: " + Turbolinks.pagesCached());
+	}
+	else {
+		alert("That is not a course!");
+	}
+}
 
 function onDone() {
 	// Game is done, calculate time and remember game settings
