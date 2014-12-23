@@ -1,20 +1,13 @@
-
-
 <% if user_signed_in? %>
-	<h4>Ready to play? Start with 
-		<%= link_to "Course 1", course_1_path %>.</h4>
-	<h4>Too easy? Check out <%= link_to "Course 2", course_2_path %>.</h4>
-	<h4>Conquered those? You may be ready to try <%= link_to "Course 3", course_3_path %>.</h4>
-	<h4> See your <%= link_to "Top Scores", current_user %>.</h4>
-	<h4>Have you made the <%= link_to "Leader Board", scores_path %>?</h4>
-	<h4> <%= link_to "View all users.", users_path %></h4>
-	<%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+	<h1>Time to show us your dexterity!</h1>
+	<p>Most of us use computers every day, clicking to where we need to go. How adept are you at clicking with your laptop's trackpad vs. a computer mouse?  Are you ambidextrous or is one of your hands much faster than the other?</p>
+	<p>Choose a course from the <strong>Play</strong> menu above and get ready to test your speed and accuracy!</p>
+	<p>If you have been here before, check out your <%= link_to "top scores", current_user %> or if you have made the overall <%= link_to "leader board", scores_path %>.</p>
 <% else %>
 	<div class="center jumbotron">
 		<h1>Welcome to the Dexterity App!</h1>
 		<h2>How dextrous are you using your right and left hands?</h2>
 		<%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary signup" %>
 		<p>Already a user?  <%= link_to "Sign in!", new_user_session_path, :method => :get %></p>
-	</div>
-	 
+	</div> 
 <% end %>
