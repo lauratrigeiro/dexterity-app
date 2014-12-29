@@ -1,10 +1,2 @@
-<% if @overall_best_with_settings %>
-	$('#overall-best-settings').text('<%= "Overall best time with #{params[:new_pointer]} and #{params[:new_hand]} hand: #{display_time(@overall_best_with_settings.time)} seconds" %>');
-<% else %>
-	$('#overall-best-settings').text('<%= "No overall times with #{params[:new_pointer]} and #{params[:new_hand]} hand" %>');
-<% end %>
-<% if @personal_best_with_settings %>
-	$('#personal-best-settings').text('<%= "Personal best time with #{params[:new_pointer]} and #{params[:new_hand]} hand: #{display_time(@personal_best_with_settings.time)} seconds" %>');
-<% else %>
-	$('#personal-best-settings').text('<%= "No personal times with #{params[:new_pointer]} and #{params[:new_hand]} hand" %>');
-<% end %>
+$('#overall-best-settings').text('<%= print_best_time("overall", {pointer: params[:new_pointer], hand: params[:new_hand], score: @overall_best_with_settings}) %>');
+$('#personal-best-settings').text('<%= print_best_time("personal", {pointer: params[:new_pointer], hand: params[:new_hand], score: @personal_best_with_settings}) %>');

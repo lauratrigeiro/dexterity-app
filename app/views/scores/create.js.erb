@@ -10,14 +10,14 @@
 		left: leftPos + "%",
 		top: topPos + "%"
 	});
-	console.log("number of clicks: <%= @score.time %>");
+	// console.log("number of clicks: <%= @score.time %>");
 
 <% else %>
 	$('#repeat-form').html("<%= j (render 'repeat') %>");
 	<% if @refresh %>
-		$('#overall-best').text('<%= "Overall best time: #{display_time(@overall_best.time)} seconds" %>');
-		$('#overall-best-settings').text('<%= "Overall best time with #{session[:pointer]} and #{session[:hand]} hand: #{display_time(@overall_best_with_settings.time)} seconds" %>');
-		$('#personal-best').text('<%= "Personal best time: #{display_time(@personal_best.time)} seconds" %>');
-		$('#personal-best-settings').text('<%= "Personal best time with #{session[:pointer]} and #{session[:hand]} hand: #{display_time(@personal_best_with_settings.time)} seconds" %>');
+		$('#overall-best').text('<%= print_best_time("overall", score: @overall_best) %>');
+		$('#overall-best-settings').text('<%= print_best_time("overall", {pointer: session[:pointer], hand: session[:hand], score: @overall_best_with_settings}) %>');
+		$('#personal-best').text('<%= print_best_time("personal", score: @personal_best) %>');
+		$('#personal-best-settings').text('<%= print_best_time("personal", {pointer: session[:pointer], hand: session[:hand], score: @personal_best_with_settings}) %>');
 	<% end %>
 <% end %>

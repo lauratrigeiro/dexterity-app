@@ -9,9 +9,34 @@ module ApplicationHelper
 			"#{page_title} | #{base_title}"
 		end
 	end
-
+	
+	# Correctly prints a time read from the database
 	def display_time(db_time, course = 1)
 		course == 3 ? db_time : '%.3f' % (db_time / 1000.0).to_s
+	end
+
+	# Prints a 'best' time appropriately.
+	def print_best_time(scope, opts = {})
+		return "Error" if (scope != 'overall' && scope != 'personal') || opts.empty?
+		settings_msg = if opts.length > 1
+						" with #{opts[:pointer]} and #{opts[:hand]} hand"
+					   else
+					   	""
+					   end
+		if opts.has_key?(:score)
+			score = opts[:score]
+		else
+			score = if scope == 'overall'
+						Score.overall_best(opts)
+			      	else
+						current_user.personal_best(opts)
+			      	end
+		end
+		if score
+			"#{scope.capitalize} best time#{settings_msg}: #{display_time(score.time)} seconds"
+		else
+			"No #{scope} times#{settings_msg}"
+		end
 	end
 
 	# Sorts a table by the assigned column

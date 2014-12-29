@@ -8,45 +8,14 @@
 			    <%= submit_tag "Refresh Scores", name: nil, class: "btn btn-default", id: "refresh-btn" %>   
 			<% end %></div>
     <div class="row">
-
-        <div class="col-md-6">
-        	<% settings_pointer = session[:pointer] || "touchpad" %>
-        	<% settings_hand = session[:hand] || "right" %>      
-            <% overall_best = Score.overall_best(course: @course) %>
-            <% overall_best_with_settings = Score.overall_best(course: @course, pointer: settings_pointer, 
-            													hand: settings_hand) %>
-            <div id="overall-best">
-	            <% if overall_best %>
-					<%= "Overall best time: #{display_time(overall_best.time)} seconds " %>
-				<% else %>
-					<%= "No overall times" %>
-				<% end %><br/>
-			</div>
-			<div id="overall-best-settings">
-				<% if overall_best_with_settings %>
-					<%= "Overall best time with #{settings_pointer} and #{settings_hand} hand: #{display_time(overall_best_with_settings.time)} seconds" %>
-				<% else %>
-					<%= "No overall times with #{settings_pointer} and #{settings_hand} hand" %>
-				<% end %><br/>
-			</div>
+        <% settings = {course: @course, pointer: session[:pointer] || "touchpad", hand: session[:hand] || "right"} %>
+        <div class="col-md-6"> 
+            <div id="overall-best"><%= print_best_time('overall', course: @course) %><br/></div>
+			<div id="overall-best-settings"><%= print_best_time('overall', settings) %><br/></div>
         </div>
         <div class="col-md-6">
-            <% personal_best = current_user.personal_best(course: @course) %>
-            <% personal_best_with_settings = current_user.personal_best(course: @course, pointer: settings_pointer												, hand: settings_hand) %>
-            <div id="personal-best">
-	            <% if personal_best %>
-					<%= "Personal best time: #{display_time(personal_best.time)} seconds" %>
-				<% else %>
-					<%= "No personal times" %>
-				<% end %><br/>
-			</div>
-			<div id="personal-best-settings">
-				<% if personal_best_with_settings %>
-					<%= "Personal best time with #{settings_pointer} and #{settings_hand} hand: #{display_time(personal_best_with_settings.time)} seconds" %>
-				<% else %>
-					<%= "No personal times with #{settings_pointer} and #{settings_hand} hand" %>
-				<% end %><br/>
-			</div>
+            <div id="personal-best"><%= print_best_time('personal', course: @course) %><br/></div>
+			<div id="personal-best-settings"><%= print_best_time('personal', settings) %><br/></div>
         </div>
     </div>
 </div>
