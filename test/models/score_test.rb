@@ -5,13 +5,13 @@ class ScoreTest < ActiveSupport::TestCase
   #   assert true
   # end
   def setup
-    @user = users(:test_user)
+    @user = users(:tom)
     # This code is not idiomatically correct.
-    @score = @user.scores.build(time: '1.23', level: 1)
+    @score = @user.scores.build(time: 123, course: 1)
   end
 
   test "score should be valid" do
-    assert_equal @score.time, "1.23"
+    assert_equal @score.time, 123
   end
 
 #   test "user id should be present" do

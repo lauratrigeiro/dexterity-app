@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  time: 2014-11-02 20:55:58
-  level: 1
-  user_id: 
+# one:
+#   time: 2014-11-02 20:55:58
+#   course: 1
+#   user_id: 
 
-two:
-  time: 2014-11-02 20:55:58
-  level: 1
-  user_id: 
+# two:
+#   time: 2014-11-02 20:55:58
+#   course: 1
+#   user_id: 
