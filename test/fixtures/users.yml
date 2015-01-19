@@ -21,3 +21,16 @@ tom:
   username: tom
   email: test@example.org
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= 2.days.ago.to_s(:db) %>
+
+julia:
+  username: julia
+  email: test2@example.org
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.now %>
+
+afif:
+  username: afif
+  email: test3@example.org
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.now %>

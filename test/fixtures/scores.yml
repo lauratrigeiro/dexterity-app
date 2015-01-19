@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# one:
-#   time: 2014-11-02 20:55:58
-#   course: 1
-#   user_id: 
+one:
+  time: 1234
+  course: 1
+  user: tom
+  created_at: <%= 5.hours.ago.to_s(:db) %>
+  pointer: touchpad
+  hand: right
 
 # two:
 #   time: 2014-11-02 20:55:58
 #   course: 1
 #   user_id: 
+
+
